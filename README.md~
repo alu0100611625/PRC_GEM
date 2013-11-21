@@ -28,7 +28,12 @@ Con esto conseguiremos que guardabdo dos vectores, trabajemos como una matriz, l
     ( 0 0 0 )
     ( 4 0 0 )
 
----------------------------------------------
+OPCION B
 
-PRC_GEM
-Este repositorio contiene la implementación de una gema ruby para el trabajo de las matrices dispersas y densas.
+Trabajaremos con vectores, pero de manera distinta :
+
+  - mat_val = [<val1>,<val2>,...,<valn>] => vector con los valores de los elementos no nulos
+  - matind  = [<fil1>,<fil2>,...,<filn>] => Vector que contiene el número de la fila del elemento no nulo
+	- matbeg  = [<col1>,<col2>,...,<coln>] => Vector que contiene la posición de comienzo de cada una de las columas
+	- matcnt  = [<val1>,<val2>,...,<valn>] => Vector que contiene el número de elementos de la columna
+  
