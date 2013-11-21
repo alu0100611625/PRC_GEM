@@ -1,6 +1,7 @@
-require "./racional.rb"
-require "./matriz.rb"
-require "./Sparse.rb"
+require "./lib/PRC_GEM/racional.rb"
+require "./lib/PRC_GEM/Sparse.rb"
+require "./lib/PRC_GEM/matriz.rb"
+
 class Densa < Matriz
 
 attr_reader :row, :col, :m
@@ -144,4 +145,22 @@ attr_reader :row, :col, :m
     r
   end
 
+
+  def ==(other)
+    raise unless other.is_a?(Matriz)
+    if (other.is_a?(Sparse))
+      other=self.coerce(other)
+      other=other[0]
+    end
+    if (self.row == other.row) and (self.col == other.col)
+      for i in (0...other.row)
+        for j in (0...other.col)
+         if self.m[i][j] != other.m[i][j]
+         return false
+         end
+        end
+      end
+      true
+    end #if
+  end
 end

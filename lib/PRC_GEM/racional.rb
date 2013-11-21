@@ -1,8 +1,4 @@
-#~ Trabajo realizado por Sergio Martín santana (alu0100611625)
-#~ 18/10/2013
-#~ Lenguajes y Paradigmas de la Programación
-
-require "./gcd"
+require "./lib/PRC_GEM/gcd"
 
 class Racional
 attr_reader :x,:y

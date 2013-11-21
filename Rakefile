@@ -15,12 +15,6 @@ task :spec_local do
 
 end
 
-desc "Ejecutar tests"
-task :test do
-
-  sh "ruby test/tc_matriz.rb"
-end
-
 
 desc "Ejecutar con documentacion"
 task :doc do
@@ -39,5 +33,6 @@ desc "Ejecutar las espectativas version html"
 
 task :thtml do
   sh "rspec -I. spec/matriz_spec.rb --format html"
+  
 
 end

@@ -17,9 +17,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_development_dependency "rake"
-  gem.add_development_dependency "rspec"
-  gem.add_development_dependency "guard-rspec"
-  gem.add_development_dependency "guard-bundler"
-
+  s.add_development_dependency "rake"
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "guard-rspec"
+  s.add_development_dependency "guard-bundler"
 end

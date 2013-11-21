@@ -1,7 +1,8 @@
-require "./racional.rb"
-require "./Sparse.rb"
-require "./matriz.rb"
-require "./Densa.rb"
+require "./lib/PRC_GEM/racional.rb"
+require "./lib/PRC_GEM/Sparse.rb"
+require "./lib/PRC_GEM/matriz.rb"
+require "./lib/PRC_GEM/Densa.rb"
+
 M1 = Densa.new(3,3)
 M2 = Sparse.new(3,3)
 

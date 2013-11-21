@@ -1,7 +1,7 @@
+require "./lib/PRC_GEM/matriz.rb"
+require "./lib/PRC_GEM/racional.rb"
+require "./lib/PRC_GEM/Densa.rb"
 
-require "./racional.rb"
-require "./Densa.rb"
-require "./matriz.rb"
 
 class Sparse < Matriz
 
@@ -149,5 +149,27 @@ attr_reader :row, :col, :valor, :pos
     r
   end
   
+  def ==(other)
+    raise unless other.is_a?(Matriz) #deben ser matrices, da = si se comparan densas con dispersas
+    if (other.is_a?(Densa))
+      other=self.coerce(other)
+      other=other[0]
+    end
+    if (@row == other.row) and (@col == other.col)
+      if (@pos.size == 0) #si ambos estan estan vacios...
+        return true
+      elsif
+        for i in (0...@pos.size)
+         k = other.buscar(@pos[i][0],@pos[i][1])
+         if ( k!= -1) #existe esa pos
+         if (@valor[i] == other.valor[k])
+         return true
+         end
+         end
+        end #for
+      end
+      false
+    end #if
+  end
 end
 
