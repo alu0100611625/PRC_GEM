@@ -3,6 +3,7 @@ require "./lib/PRC_GEM/Sparse.rb"
 require "./lib/PRC_GEM/matriz.rb"
 require "./lib/PRC_GEM/Densa.rb"
 
+
 M1 = Densa.new(3,3)
 M2 = Sparse.new(3,3)
 M11 = Sparse.new(3,3)
@@ -21,68 +22,41 @@ M4.fill_M([[0,0],[1,1],[2,2]],[1,2,3])
 
 Mp = Densa.new(3,3)
 Mp.fill_M([[Racional.new(3,2),1,1],[1,1,1],[1,1,1]])
-
-#M5 = M11 + M3
-M6 = M3 + M11
-
+puts "\nMatrices densas\n\n"
+M3.to_s
+M1.to_s
+puts "\nSuma de matrices densas\n\n"
+M6 = M1 + M3
 M6.to_s
 
-MA = Sparse.new(2,2)
-MB = Sparse.new(2,2)
-MT = Sparse.new(2,2)
-
-MA.fill_M([[1,1]],[2])
-MB.fill_M([[1,1]],[2])
-
-MA.to_s
-puts "VALOR A"
-puts "#{MA.valor}"
-puts "#{MA.pos}"
-MB.to_s
-puts "VALOR B"
-puts "#{MB.valor}"
-puts "#{MB.pos}"
-MS = MA + MB
-MT.to_s
-
-puts "CLASE DE MA  #{MA.class}"
-puts "CLASE DE MB  #{MB.class}" 
-
-
-#MC = Sparse.new(2,2)
-#MD = Sparse.new(2,2)
-
-#MC.fill_M([],[])
-#MD.fill_M([],[])
-
-#M6.to_s
-puts "OPERADORES"
-
-aux = (M3+M11)
-aux.to_s
+puts "\nResta de matrices densas\n\n"
+M6 = M1 - M3
 M6.to_s
- 
-if ((aux) == (M6))
-	puts "BIEN"
-	else
-	puts "BAD"
-end
+puts "\nMatrices dispersas\n\n"
+M4.to_s
+M11.to_s
+puts "\nSuma de matrices dispersas\n\n"
+M7=M4+M11
+M7.to_s
+puts "\nResta de matrices dispersas\n\n"
+MD=M4-M11
+MD.to_s
+
+puts "Matriz densa\n\n"
+M10 = Densa.new(2,2)
+M10.fill_M([[1,2],[3,4]])
+M10.to_s
+puts "Maximo de matriz densa\n\n"
+puts M10.max
+puts "Minimo de matrices densa\n\n"
+puts M10.min
+puts "Matriz dispersa\n\n"
+M12 = Sparse.new(3,3)
+M12.fill_M([[0,0],[1,1],[2,2]],[1,2,3])
+M12.to_s
+puts "\nMaximo de matriz dispersa\n\n"
+puts M12.max
+puts "\nMinimo de matriz dispersa\n\n"
+puts M12.min
 
 
-#Mp.to_s
-
-#M7 = M - M4
-
-#M1.to_s
-#M2.to_s
-#puts M1.max
-#puts M4.max
-#puts M4.min
-
-#puts M1.max
-#puts M3.min
-
-
-#M5.to_s
-#M6.to_s
-#M7.to_s
