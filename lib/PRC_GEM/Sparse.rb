@@ -16,7 +16,7 @@ attr_reader :row, :col, :valor, :pos
 	
 	def fill_M (pos,dat)
 	if dat.is_a?(Array) and pos.is_a?(Array)
-    for i in (0...pos.size)
+    for i in (0...dat.size)
       @pos << pos[i]
       @valor << dat[i]
     end
@@ -24,26 +24,27 @@ attr_reader :row, :col, :valor, :pos
 	end
 	
 	 def coerce(other)
-     if (other.is_a?(Densa))
+     #if (other.is_a?(Densa))
     a=Sparse.new(other.row,other.col)
     for i in (0...other.row)
       for j in (0...other.col)
 	if (other.m[i][j] != 0)
 	  a.pos << [i,j]
-	  a.dato << other.m[i][j]
+	  a.valor << other.m[i][j]
 	end
       end
     end
     return[a,self]
     end
-  end
+ 
 		  
 	def to_s
 		aux = Densa.new(self.row,self.col)
 		aux = (aux.coerce(self))[0]
 		puts aux.to_s
+
 	end
-	
+
 	def buscar (i,j) #devuelve una posicion del array que coincide con los indices de los param
 		aux=[i,j]
 		posicion= -1
@@ -56,7 +57,7 @@ attr_reader :row, :col, :valor, :pos
 		end
 			posicion
 	end
-	
+
 	##SUMA##
 	
 	def +(other)
@@ -67,7 +68,7 @@ attr_reader :row, :col, :valor, :pos
     end
     if (@row == other.row) and (@col == other.col)
       nueva= Sparse.new(@row,@col)
-      for i in (0...@pos.size)
+      @pos.size.times do |i| ##CAMBIOS
         k = other.buscar(@pos[i][0],@pos[i][1])
         if (k!= -1) #Si existe
          if (@valor[i]+other.valor[k]) != 0
@@ -79,7 +80,8 @@ attr_reader :row, :col, :valor, :pos
          nueva.valor << @valor[i]
         end
       end 
-      for i in (0...other.pos.size) #almacenamos los que no se hayan sumado de la otra matriz
+      #almacenamos los que no se hayan sumado de la otra matriz
+      other.pos.size.times do |i| ##CAMBIOS
         k = nueva.buscar(other.pos[i][0],other.pos[i][1])
         if (k==-1)
          nueva.pos << other.pos[i]
@@ -102,8 +104,8 @@ attr_reader :row, :col, :valor, :pos
     end
     if (@row == other.row) and (@col == other.col)
       nueva= Sparse.new(@row,@col)
-      for i in (0...@pos.size)
-        k = other.buscar(@pos[i][0],@pos[i][1])
+	@pos.size.times do |i| ##CAMBIOS         
+		k = other.buscar(@pos[i][0],@pos[i][1])
         if (k!= -1) #existe esa pos
          nueva.pos << @pos[i]
          nueva.valor << (@valor[i]-other.valor[k])
@@ -112,7 +114,8 @@ attr_reader :row, :col, :valor, :pos
          nueva.valor << @valor[i]
         end
       end #for
-      for i in (0...other.pos.size) #almacenamos los que no se hayan sumado de la otra matriz
+      #almacenamos los que no se hayan sumado de la otra matriz
+      other.pos.size.times do |i|  
         k = nueva.buscar(other.pos[i][0],other.pos[i][1])
         if (k==-1)
          nueva.pos << other.pos[i]
@@ -129,9 +132,9 @@ attr_reader :row, :col, :valor, :pos
     r = -999999
     aux=valor
     aux<< 0
-    for i in (0...@valor.size)
-      if (aux[i].to_f>r)
-        r=aux[i]
+      @valor.each do |i| ##CAMBIOS
+      if (i.to_f>r.to_f)
+        r=i
       end
     end
     r
@@ -141,35 +144,41 @@ attr_reader :row, :col, :valor, :pos
     r = 999999
     aux=valor
     aux<< 0
-    for i in (0...@valor.size)
-      if (aux[i].to_f<r)
-        r=aux[i]
+      @valor.each do |i| #CAMBIOS
+      if (i.to_f<r.to_f)
+        r=i
       end
     end
     r
   end
   
-  def ==(other)
+##########################################
+
+def ==(other) #Compara si dos matrices son iguales o no
     raise unless other.is_a?(Matriz) #deben ser matrices, da = si se comparan densas con dispersas
     if (other.is_a?(Densa))
       other=self.coerce(other)
       other=other[0]
     end
     if (@row == other.row) and (@col == other.col)
-      if (@pos.size == 0) #si ambos estan estan vacios...
-        return true
-      elsif
-        for i in (0...@pos.size)
-         k = other.buscar(@pos[i][0],@pos[i][1])
-         if ( k!= -1) #existe esa pos
-         if (@valor[i] == other.valor[k])
-         return true
-         end
-         end
-        end #for
+      if (@pos.size == 0) and (other.pos.size == 0)#si ambos estan estan vacios...
+	return true
+      elsif (@pos.size == other.pos.size)
+	for i in (0...@pos.size)
+	  k = other.buscar(@pos[i][0],@pos[i][1]) #buscamos esa pos en el otro vector
+	  if (k == -1)
+	    return false
+	  elsif (@valor[i] != other.valor[k])
+	    return false
+	  end
+	end
+	return true
+      else
+	return false
       end
-      false
-    end #if
+    else
+      return false
+    end
   end
-end
 
+end

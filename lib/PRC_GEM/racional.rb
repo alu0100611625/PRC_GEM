@@ -19,34 +19,131 @@ attr_reader :x,:y
    	def to_s
 		"(#{@x}/#{@y})"
 	end
+
+# to_f #
+
+	def to_f
+		tmp = @x.to_f/ @y.to_f
+		return tmp
+	end
+	
+# coerce #
+
+   def coerce(other)
+     if (other.is_a?(Integer))
+       [Racional.new(other.to_i,1),self]
+     end
+   end
+   
 #suma # devuelve un nuevo racional que suma al objeto que invoca el que le pasan como parámetro
 	def +(other)
+	if (other.is_a?(Integer))
+      other=Racional.new(other,1)
+    end
+	if (other.is_a?(Racional))
 		den = (@y * other.y)
 		num = (@x*other.y)+(other.x*@y)
 		Racional.new(num,den)
+		end
 	end
 		
 #resta # devuelve un nuevo racional que resta al objeto que invoca el que le pasan como parámetro
 	def -(other)
+		if (other.is_a?(Integer))
+      other=Racional.new(other,1)
+    end
+	if (other.is_a?(Racional))
 		den = (@y * other.y)
 		num = (@x*other.y)-(other.x*@y)
 		Racional.new(num,den)
+		end
 	end
 #producto # devuelve un nuevo racional que multiplica al objeto que invoca el que le pasan como parámetro
 
 	def *(other)
+		if (other.is_a?(Integer))
+      other=Racional.new(other,1)
+    end
+	if (other.is_a?(Racional))
 		den = (@y*other.y)
 		num = (@x*other.x)
 		Racional.new(num,den)
+		end
 	end
 #division # devuelve un nuevo racional que multiplica al objeto que invoca el que le pasan como parámetro
 	def /(other)
+		if (other.is_a?(Integer))
+      other=Racional.new(other,1)
+    end
+	if (other.is_a?(Racional))
 		den = (@y*other.x)
 		num = (@x*other.y)
 		Racional.new(num,den)
-		
+		end
+	end
+	
+# > #
+
+	def >(other)
+		if (self.to_f > other.to_f)
+			true
+		else
+			false
+		end
 	end
 
+# < #
+
+  def <(other)
+    if (self.to_f < other.to_f)
+      true
+    else
+      false
+    end
+  end
+
+# <= #
+
+  def <=(other)
+    if (self.to_f <= other.to_f)
+      true
+    else
+      false
+    end
+  end
+
+
+
+# >= #
+
+  def >=(other)
+    if (self.to_f >= other.to_f)
+      true
+    else
+      false
+    end
+	end
+  
+# <=> #
+
+   def <=>(other)
+     self.to_f <=> other.to_f
+   end
+
+# == #
+	def == (other)
+		if (self.to_f == other.to_f)
+		true
+		else
+		false
+		end
+	end
+# -@ # 
+
+   def -@
+       Racional.new(-self.x,self.y)
+   end
+   
 end
 
 #P1= Racional.new(12,9)

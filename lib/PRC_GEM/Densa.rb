@@ -33,20 +33,18 @@ attr_reader :row, :col, :m
 		end
 	end
 	
-	  def coerce (other)
-    if (other.is_a?(Sparse))
+def coerce (other)
       a=Densa.new(other.row,other.col)
       for i in (0...a.row)
-	for j in (0...a.col)
-	  a.m[i][j]=0
-	end
+			for j in (0...a.col)
+				a.m[i][j]=0
+			end
       end
       for i in (0...other.pos.size)
-	a.m[other.pos[i][0]][other.pos[i][1]]= other.valor[i]
+			a.m[other.pos[i][0]][other.pos[i][1]]= other.valor[i]
       end
-      [a,self]
-    end
-  end
+      return [a,self]
+end
   
 	def +(other)
 	raise unless other.is_a?(Matriz)
@@ -56,8 +54,8 @@ attr_reader :row, :col, :m
     end
     if (self.row == other.row) and (self.col == other.col)
       nueva = Densa.new(self.row,self.col)
-      for i in (0...self.row)
-        for j in (0...self.col)
+      @row.times do |i| ##CAMBIOS
+        @col.times do |j| ##CAMBIOS
          nueva.m[i][j] = self.m[i][j] + other.m[i][j]
         end
       end
@@ -65,7 +63,7 @@ attr_reader :row, :col, :m
     else
       puts "Error. Las Matrices no tienen las mismas dimensiones."
     end
-  end
+	end
 
   def -(other)
   raise unless other.is_a?(Matriz)
@@ -75,8 +73,8 @@ attr_reader :row, :col, :m
     end
     if (self.row == other.row) and (self.col == other.col)
       nueva = Densa.new(self.row,self.col)
-      for i in (0...self.row)
-        for j in (0...self.col)
+      @row.times do |i| ##CAMBIOS
+        @col.times do |j| ##CAMBIOS
          nueva.m[i][j] = self.m[i][j] - other.m[i][j]
         end
       end
@@ -90,26 +88,27 @@ attr_reader :row, :col, :m
     nueva = Densa.new(self.row,self.col)
     if other.is_a?(Numeric)
       if (self.m[0][0]).is_a?(Racional)
-        n=Racionales.new(other,1)
+        n=Racional.new(other,1)
       else
         n=other
       end
-      for i in (0...self.row)
-       for j in (0...self.col)
+      @row.times do |i| ##CAMBIOS
+        @col.times do |j| ##CAMBIOS
          nueva.m[i][j] = n*self.m[i][j]
        end
      end
      nueva
     elsif other.is_a?(Densa)
       if (self.col == other.row)
-        for i in (0...self.row)
-         for j in (0...other.col)
+      @row.times do |i| ##CAMBIOS
+        @col.times do |j| ##CAMBIOS
          if (self.m[0][0]).is_a?(Racional)
-         nueva.m[i][j] = Racionales.new(0,1)
+         nueva.m[i][j] = Racional.new(0,1)
          else
          nueva.m[i][j] = 0
          end
-         for k in (0...self.col)
+         self.col.times do |k| ##CAMBIOS
+         #for k in (0...self.col)
          nueva.m[i][j] += self.m[i][k]*other.m[k][j]
          end
          end
@@ -123,10 +122,10 @@ attr_reader :row, :col, :m
   
   def max
     r=-10000
-    for i in (0...@row)
-      for j in (0...@col)
-        if ((m[i][j]).to_f > r)
-         r = m[i][j]
+	@m.each do |i| ##CAMBIOS
+    i.each do |j| ##CAMBIOS
+        if (j.to_f > r.to_f)
+         r = j
         end
       end
     end
@@ -135,18 +134,19 @@ attr_reader :row, :col, :m
   
    def min
     r= 10000
-    for i in (0...@row)
-      for j in (0...@col)
-        if ((m[i][j]).to_f < r)
-         r = m[i][j]
+	@m.each do |i| ##CAMBIOS
+    i.each do |j| ##CAMBIOS
+        if (j.to_f < r.to_f)
+         r = j
         end
       end
     end
     r
   end
 
+#########################################################################
 
-  def ==(other)
+ def ==(other) #Compara si dos matrices son iguales o no
     raise unless other.is_a?(Matriz)
     if (other.is_a?(Sparse))
       other=self.coerce(other)
@@ -154,13 +154,15 @@ attr_reader :row, :col, :m
     end
     if (self.row == other.row) and (self.col == other.col)
       for i in (0...other.row)
-        for j in (0...other.col)
-         if self.m[i][j] != other.m[i][j]
-         return false
-         end
-        end
+		for j in (0...other.col)
+			if self.m[i][j] != other.m[i][j]
+				return false
+			end
+		end
       end
       true
     end #if
   end
+  
+  
 end
