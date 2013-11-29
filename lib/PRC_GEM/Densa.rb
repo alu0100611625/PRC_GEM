@@ -164,5 +164,14 @@ end
     end #if
   end
   
-  
+  def encontrar
+	@row.times do |i| ##CAMBIOS
+    @col.times do |j| ##CAMBIOS
+    if (yield (self.m[i][j]))
+	return [i,j]
+	end
+    end
+    end
+  end
+      
 end

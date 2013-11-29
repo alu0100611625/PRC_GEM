@@ -59,4 +59,8 @@ puts M12.max
 puts "\nMinimo de matriz dispersa\n\n"
 puts M12.min
 
+puts "ENCONTRAR"
+ME = Densa.new(3,3)
+ME.fill_M([[1,2,3],[4,5,6],[7,8,9]])
+puts "#{ME.encontrar {|e| (e*e >= 16)}}"
 
