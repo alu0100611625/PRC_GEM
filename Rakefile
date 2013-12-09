@@ -1,3 +1,6 @@
+#!/usr/bin/env rake
+require "bundler/gem_tasks"
+
 $:.unshift File.dirname(__FILE__) + 'lib'
 
 $:.unshift './lib', './spec'

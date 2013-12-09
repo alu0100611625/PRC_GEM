@@ -8,17 +8,11 @@ RSpec::Core::RakeTask.new
 
 task :default => :spec
 
-desc "Ejecutar las espectativas de la clase Matriz e hijas"
+desc "Ejecutar espectativas"
 
 task :spec_local do
   sh "rspec -I. spec/matriz_spec.rb"
 
-end
-
-desc "Ejecutar tests"
-task :test do
-
-  sh "ruby test/tc_matriz.rb"
 end
 
 
@@ -35,9 +29,10 @@ task :bin do
 
 end
 
-desc "Ejecutar las espectativas de la clase Matriz version html"
+desc "Ejecutar las espectativas version html"
 
 task :thtml do
   sh "rspec -I. spec/matriz_spec.rb --format html"
+  
 
 end
